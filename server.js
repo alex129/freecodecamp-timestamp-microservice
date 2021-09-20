@@ -37,7 +37,7 @@ router.get('/:date', (req, res) => {
   }
 });
 router.get('/', (req, res) => {
-  let date = new Date().now();
+  let date = new Date();
   const unix = date.getTime();
   const utc = date.toUTCString();
   res.json({ unix: unix, utc: utc });
