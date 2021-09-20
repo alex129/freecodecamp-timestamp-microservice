@@ -27,7 +27,7 @@ app.get("/api/hello", function (req, res) {
 const router = express.Router()
 router.get('/:date', (req, res) => {
   const dateParam = isNaN(req.params.date) ? req.params.date : parseFloat(req.params.date);
-  let date = dateParam ? new Date(dateParam) : Date().now();
+  let date = new Date(dateParam);
   if (!isNaN(date.getTime())) {
     const unix = date.getTime();
     const utc = date.toUTCString();
@@ -35,6 +35,12 @@ router.get('/:date', (req, res) => {
   } else {
     res.json({ error: "Invalid Date" });
   }
+});
+router.get('/', (req, res) => {
+  let date = new Date().now();
+  const unix = date.getTime();
+  const utc = date.toUTCString();
+  res.json({ unix: unix, utc: utc });
 });
 app.use('/api', router);
 
